@@ -1,0 +1,24 @@
+---
+layout: '../../layouts/MarkdownLayout.astro'
+title: 'Matching Link Prediction'
+---
+
+import Leaderboard from '../../components/leaderboard.svelte'
+
+The Matching Link Prediction task focuses on predicting connections between anonymized Twitter accounts and Ethereum addresses. The ETGraph dataset provides resources specifically designed for matching link prediction, enabling researchers to explore the associations between social media users and their corresponding Ethereum transactions.
+
+### Key Features
+
+- **Comprehensive Data:** The ETGraph dataset includes a Twitter graph capturing the social network of users associated with Ethereum transactions, providing valuable insights into user interactions within the Ethereum community.
+
+- **Anonymized Twitter Matching:** The dataset includes a file with anonymized Twitter accounts matched with Ethereum addresses. This feature allows researchers to analyze numerical ID associations without compromising personal information.
+
+### Usage
+
+Researchers can utilize the provided anonymized Twitter matching file to investigate and predict associations between Twitter accounts and Ethereum addresses. By leveraging the comprehensive Twitter graph, researchers can gain insights into user interactions and their connections with Ethereum transactions.
+
+For more details on how to use the ETGraph dataset for matching link prediction, refer to the documentation and code examples provided.
+
+### Leaderboard
+
+<Leaderboard client:load jsonUrl="https://raw.githubusercontent.com/lirc572/test/master/leaderboard.json" repoUrl="https://github.com/lirc572/test" />
