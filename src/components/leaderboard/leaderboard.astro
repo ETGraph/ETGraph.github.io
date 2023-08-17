@@ -1,0 +1,148 @@
+---
+import SubmissionForm from "./submisionForm.svelte";
+
+  interface Contact {
+      name: string;
+      email: string;
+  }
+
+  interface Result {
+      method: string;
+      testAucRoc: number;
+      testPrecision: number;
+      testRecall: number;
+      testF1: number;
+      contact: Contact;
+      references: string;
+  }
+
+  interface Props {
+    jsonUrl: string;
+    repoUrl: string;
+}
+
+  const {jsonUrl, repoUrl} = Astro.props;
+
+  let results: Result[] = [];
+
+  try {
+      const response = await fetch(jsonUrl);
+      results = await response.json();
+      // Sort the results by testAucRoc in descending order
+      results.sort((a, b) => b.testAucRoc - a.testAucRoc);
+  } catch (error) {
+      console.error("Error fetching leaderboard data:", error);
+  }
+---
+
+  <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+      <table
+          class="w-full text-sm text-left text-gray-500 dark:text-gray-400 my-0"
+      >
+          <!-- Table headers -->
+          <thead
+              class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+          >
+              <tr>
+                  <th scope="col" class="px-6 py-3"> Rank </th>
+                  <th scope="col" class="px-6 py-3"> Method </th>
+                  <th scope="col" class="px-6 py-3"> Test AUC-ROC </th>
+                  <th scope="col" class="px-6 py-3"> Test Precision </th>
+                  <th scope="col" class="px-6 py-3"> Test Recall </th>
+                  <th scope="col" class="px-6 py-3"> Test F1 </th>
+                  <th scope="col" class="px-6 py-3"> Contact </th>
+                  <th scope="col" class="px-6 py-3"> References </th>
+              </tr>
+          </thead>
+          <tbody>
+            {results.map((result, index) => (
+              <!-- Table rows -->
+                  <tr
+                      class="bg-white border-b dark:bg-gray-900 dark:border-gray-700"
+                  >
+                      <td class="px-6 py-4">
+                          {index + 1}
+                      </td>
+                      <td class="px-6 py-4">
+                          {result.method}
+                      </td>
+                      <td class="px-6 py-4">
+                          {result.testAucRoc}
+                      </td>
+                      <td class="px-6 py-4">
+                          {result.testPrecision}
+                      </td>
+                      <td class="px-6 py-4">
+                          {result.testRecall}
+                      </td>
+                      <td class="px-6 py-4">
+                          {result.testF1}
+                      </td>
+                      <td class="px-6 py-4">
+                          <a
+                              href={`mailto:${result.contact.email}`}
+                              class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                          >
+                              {result.contact.name}
+                          </a>
+                      </td>
+                      <td class="px-6 py-4">
+                          <a
+                              href={result.references}
+                              target="_blank"
+                              class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                              >Link</a
+                          >
+                      </td>
+                  </tr>
+            ))}
+          </tbody>
+      </table>
+  </div>
+
+<a target="_blank" rel="noopener noreferrer">
+  <button
+    data-modal-target="submission-modal"
+    data-modal-toggle="submission-modal"
+    type="button"
+      class="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
+  >
+      Submit a New Result
+  </button>
+</a>
+
+<div
+    id="submission-modal"
+    tabindex="-1"
+    aria-hidden="true"
+    class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full"
+>
+    <div class="relative w-full max-w-md max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <button
+                type="button"
+                class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                data-modal-hide="submission-modal"
+            >
+                <svg
+                    class="w-3 h-3"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 14 14"
+                >
+                    <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+                    />
+                </svg>
+                <span class="sr-only">Close modal</span>
+            </button>
+            <SubmissionForm client:load />
+        </div>
+    </div>
+</div>
