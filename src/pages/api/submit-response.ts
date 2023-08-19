@@ -30,10 +30,11 @@ export const post: APIRoute = async ({ request, clientAddress }) => {
       const hCaptchaResData = await hCaptchaRes.json() as {
         success: boolean;
       };
+      const logMessage = `[${clientAddress}] requestBody: ${JSON.stringify(body)}, hCaptchaVerify: ${JSON.stringify(hCaptchaResData)}`;
       if (!hCaptchaResData.success) {
-        console.log(`From ${clientAddress}: ${JSON.stringify(body)}`);
+        console.log(logMessage);
       } else {
-        console.error(`From ${clientAddress}: ${JSON.stringify(body)}`);
+        console.error(logMessage);
       }
       return new Response(
         null,

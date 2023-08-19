@@ -8,11 +8,6 @@ on:
       - master
   workflow_dispatch:
 
-env:
-  PUBLIC_GITHUB_URL: ${{ vars.PUBLIC_GITHUB_URL }}
-  PUBLIC_HCAPTCHA_SITEKEY: ${{ vars.PUBLIC_HCAPTCHA_SITEKEY }}
-  HCAPTCHA_SECRET_KEY: ${{ vars.HCAPTCHA_SECRET_KEY }}
-
 jobs:
   deploy:
     name: Deploy
@@ -38,6 +33,10 @@ jobs:
 
       - name: Build Astro
         run: pnpm run build
+        env:
+          PUBLIC_GITHUB_URL: ${{ vars.PUBLIC_GITHUB_URL }}
+          PUBLIC_HCAPTCHA_SITEKEY: ${{ vars.PUBLIC_HCAPTCHA_SITEKEY }}
+          HCAPTCHA_SECRET_KEY: ${{ secrets.HCAPTCHA_SECRET_KEY }}
 
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
