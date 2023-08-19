@@ -30,7 +30,7 @@
         try {
             const hCaptchaResponse = hcaptcha.getResponse(hcaptchaWidgetID);
             if (!hCaptchaResponse) throw new Error("hCaptcha failed");
-            const submitRes = await fetch("/submit-response", {
+            const submitRes = await fetch("/api/submit-response", {
                 method: "POST",
                 credentials: "omit",
                 headers: {

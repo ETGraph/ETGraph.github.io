@@ -1,6 +1,6 @@
 import type { APIRoute } from "astro";
 
-export const post: APIRoute = async ({ params, request, clientAddress }) => {
+export const post: APIRoute = async ({ request, clientAddress }) => {
   if (request.headers.get("Content-Type") === "application/json") {
     const body = await request.json() as {
       method: string;
