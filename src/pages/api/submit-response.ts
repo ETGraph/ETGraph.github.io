@@ -31,7 +31,7 @@ export const post: APIRoute = async ({ request, clientAddress }) => {
         success: boolean;
       };
       const logMessage = `[${clientAddress}] requestBody: ${JSON.stringify(body)}, hCaptchaVerify: ${JSON.stringify(hCaptchaResData)}`;
-      if (!hCaptchaResData.success) {
+      if (hCaptchaResData.success) {
         console.log(logMessage);
       } else {
         console.error(logMessage);

@@ -22,3 +22,4 @@ Steps:
 - Configure the required environment variables in GitHub repository settings (in the "Actions secrets and variables" tab)
 - Configure the Deno Deploy project name in [`deploy.yml`](.github/workflows/deploy.yml)
 - Push to the `master` branch to trigger the deployment
+- Configure secret environment variables in the Deno Deploy project settings (still investigating why this step is needed)
