@@ -17,21 +17,19 @@ import SubmissionForm from "./submisionForm.svelte";
   }
 
   interface Props {
-    jsonUrl: string;
-    repoUrl: string;
+    jsonString: string;
 }
 
-  const {jsonUrl, repoUrl} = Astro.props;
+  const {jsonString} = Astro.props;
 
   let results: Result[] = [];
 
   try {
-      const response = await fetch(jsonUrl);
-      results = await response.json();
+      results = JSON.parse(jsonString);
       // Sort the results by testAucRoc in descending order
       results.sort((a, b) => b.testAucRoc - a.testAucRoc);
   } catch (error) {
-      console.error("Error fetching leaderboard data:", error);
+      console.error("Error parsing JSON string", error);
   }
 ---
 
