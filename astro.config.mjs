@@ -10,5 +10,8 @@ import react from "@astrojs/react";
 export default defineConfig({
   output: "server",
   adapter: deno(),
-  integrations: [tailwind(), svelte(), mdx(), react()]
+  integrations: [tailwind(), svelte(), mdx(), react()],
+  experimental: {
+    viewTransitions: true,
+  },
 });

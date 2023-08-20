@@ -1,14 +1,37 @@
 <script lang="ts">
+    import { onMount } from "svelte";
+    import { Dropdown } from "flowbite";
+    import type { DropdownOptions, DropdownInterface } from "flowbite";
+
     const links = {
         home: "/",
         about: "/about",
         tasks: {
             ethereumLinkPrediction: "/tasks/ethereum-link-prediction",
-            washTradingAddressDetection: "/tasks/wash-trading-address-detection",
+            washTradingAddressDetection:
+                "/tasks/wash-trading-address-detection",
             matchingLinkPrediction: "/tasks/matching-link-prediction",
         },
         github: import.meta.env.PUBLIC_GITHUB_URL,
     };
+
+    onMount(() => {
+        const dropDownTargetEl = document.getElementById("dropdownNavbar");
+        const dropDownTriggerEl = document.getElementById("dropdownNavbarLink");
+        const dropDownOptions: DropdownOptions = {
+            placement: "bottom",
+            triggerType: "click",
+            offsetSkidding: 0,
+            offsetDistance: 10,
+            delay: 300,
+            ignoreClickOutsideClass: false,
+        };
+        const dropdown = new Dropdown(
+            dropDownTargetEl,
+            dropDownTriggerEl,
+            dropDownOptions
+        );
+    });
 </script>
 
 <header
@@ -19,7 +42,7 @@
             class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"
         >
             <a href={links.home} class="flex items-center">
-                <img src="/favicon.png" class="h-8 mr-3" alt="ETGraph Logo">
+                <img src="/favicon.png" class="h-8 mr-3" alt="ETGraph Logo" />
                 <span
                     class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"
                     >ETGraph</span
@@ -92,21 +115,24 @@
                             >
                                 <li>
                                     <a
-                                        href={links.tasks.ethereumLinkPrediction}
+                                        href={links.tasks
+                                            .ethereumLinkPrediction}
                                         class="block px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
                                         >Ethereum Link Prediction</a
                                     >
                                 </li>
                                 <li>
                                     <a
-                                        href={links.tasks.washTradingAddressDetection}
+                                        href={links.tasks
+                                            .washTradingAddressDetection}
                                         class="block px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
                                         >Wash-trading Address Detection</a
                                     >
                                 </li>
                                 <li>
                                     <a
-                                        href={links.tasks.matchingLinkPrediction}
+                                        href={links.tasks
+                                            .matchingLinkPrediction}
                                         class="block px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
                                         >Matching Link Prediction</a
                                     >
