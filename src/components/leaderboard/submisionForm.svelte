@@ -1,11 +1,18 @@
 <script lang="ts">
-    import { onMount, onDestroy } from "svelte";
+    import { onMount } from "svelte";
+
+    export let leaderboard:
+        | "ethereum-link-prediction_with-twitter"
+        | "ethereum-link-prediction_without-twitter"
+        | "matching-link-prediction"
+        | "wash-trading-address-detection_with-twitter"
+        | "wash-trading-address-detection_without-twitter";
 
     let hcaptchaWidgetID: string;
 
     onMount(() => {
         if (hcaptcha.render) {
-            hcaptchaWidgetID = hcaptcha.render("hcaptcha", {
+            hcaptchaWidgetID = hcaptcha.render(`form-hcaptcha_${leaderboard}`, {
                 sitekey: import.meta.env.PUBLIC_HCAPTCHA_SITEKEY,
             });
         }
@@ -37,6 +44,7 @@
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
+                    leaderboard,
                     ...formData,
                     hCaptchaResponse,
                 }),
@@ -59,13 +67,13 @@
     <form class="space-y-6" on:submit|preventDefault={handleSubmit}>
         <div>
             <label
-                for="form-method"
+                for={`form-method_${leaderboard}`}
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >Method</label
             >
             <input
                 type="text"
-                id="form-method"
+                id={`form-method_${leaderboard}`}
                 bind:value={formData.method}
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                 required
@@ -73,13 +81,13 @@
         </div>
         <div>
             <label
-                for="form-test-auc-roc"
+                for={`form-test-auc-roc_${leaderboard}`}
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >Test AUC-ROC</label
             >
             <input
                 type="number"
-                id="form-test-auc-roc"
+                id={`form-test-auc-roc_${leaderboard}`}
                 bind:value={formData.testAucRoc}
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                 required
@@ -87,13 +95,13 @@
         </div>
         <div>
             <label
-                for="form-test-precision"
+                for={`form-test-precision_${leaderboard}`}
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >Test Precision</label
             >
             <input
                 type="number"
-                id="form-test-precision"
+                id={`form-test-precision_${leaderboard}`}
                 bind:value={formData.testPrecision}
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                 required
@@ -101,13 +109,13 @@
         </div>
         <div>
             <label
-                for="form-test-recall"
+                for={`form-test-recall_${leaderboard}`}
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >Test Recall</label
             >
             <input
                 type="number"
-                id="form-test-recall"
+                id={`form-test-recall_${leaderboard}`}
                 bind:value={formData.testRecall}
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                 required
@@ -115,13 +123,13 @@
         </div>
         <div>
             <label
-                for="form-test-f1"
+                for={`form-test-f1_${leaderboard}`}
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >Test F1</label
             >
             <input
                 type="number"
-                id="form-test-f1"
+                id={`form-test-f1_${leaderboard}`}
                 bind:value={formData.testF1}
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                 required
@@ -129,13 +137,13 @@
         </div>
         <div>
             <label
-                for="form-name"
+                for={`form-name_${leaderboard}`}
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >Name</label
             >
             <input
                 type="text"
-                id="form-name"
+                id={`form-name_${leaderboard}`}
                 bind:value={formData.name}
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                 required
@@ -143,13 +151,13 @@
         </div>
         <div>
             <label
-                for="form-email"
+                for={`form-email_${leaderboard}`}
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >Email</label
             >
             <input
                 type="email"
-                id="form-email"
+                id={`form-email_${leaderboard}`}
                 bind:value={formData.email}
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                 required
@@ -157,20 +165,20 @@
         </div>
         <div>
             <label
-                for="form-references"
+                for={`form-references_${leaderboard}`}
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >References</label
             >
             <input
                 type="url"
-                id="form-references"
+                id={`form-references_${leaderboard}`}
                 bind:value={formData.references}
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                 required
             />
         </div>
         <div
-            id="hcaptcha"
+            id={`form-hcaptcha_${leaderboard}`}
             class="h-captcha"
             data-sitekey={import.meta.env.PUBLIC_HCAPTCHA_SITEKEY}
         />
