@@ -4,7 +4,8 @@ title: 'Ethereum Link Prediction'
 ---
 
 import Leaderboard from '../../components/leaderboard/leaderboard.astro';
-import json from '../../../public/leaderboard/ethereum-link-prediction.json';
+import dataWithoutTwitter from '../../../public/leaderboard/ethereum-link-prediction_without-twitter.json';
+import dataWithTwitter from '../../../public/leaderboard/ethereum-link-prediction_with-twitter.json';
 
 The Ethereum Link Prediction task aims to predict future connections between Ethereum addresses based on historical transaction data. The ETGraph dataset provides code and experiments specifically designed for Ethereum link prediction. Researchers and developers can leverage this resource to explore and develop models that predict potential connections within the Ethereum network.
 
@@ -24,4 +25,10 @@ For more details on how to use the ETGraph dataset for Ethereum link prediction,
 
 ### Leaderboard
 
-<Leaderboard jsonString={JSON.stringify(json)} />
+### Without Twitter Features
+
+<Leaderboard jsonString={JSON.stringify(dataWithoutTwitter)} />
+
+### With Twitter Features
+
+<Leaderboard jsonString={JSON.stringify(dataWithTwitter)} />

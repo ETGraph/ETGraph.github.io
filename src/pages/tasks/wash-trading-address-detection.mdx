@@ -4,7 +4,8 @@ title: 'Wash-trading Address Detection'
 ---
 
 import Leaderboard from '../../components/leaderboard/leaderboard.astro';
-import json from '../../../public/leaderboard/wash-trading-address-detection.json';
+import dataWithoutTwitter from '../../../public/leaderboard/wash-trading-address-detection_without-twitter.json';
+import dataWithTwitter from '../../../public/leaderboard/wash-trading-address-detection_with-twitter.json';
 
 Wash trading refers to the practice of artificially inflating trading volume by executing trades with oneself or coordinated entities. The Wash-Trading Address Detection task aims to identify addresses engaged in wash-trading activities within the Ethereum network. The ETGraph dataset provides a graph representation specifically designed for this purpose, enabling researchers to detect suspicious addresses involved in market manipulation.
 
@@ -24,4 +25,10 @@ For more details on how to use the ETGraph dataset for wash-trading address dete
 
 ### Leaderboard
 
-<Leaderboard jsonString={JSON.stringify(json)} />
+### Without Twitter Features
+
+<Leaderboard jsonString={JSON.stringify(dataWithoutTwitter)} />
+
+### With Twitter Features
+
+<Leaderboard jsonString={JSON.stringify(dataWithTwitter)} />

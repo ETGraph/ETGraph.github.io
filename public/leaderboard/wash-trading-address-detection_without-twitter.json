@@ -1,0 +1,134 @@
+[
+  {
+    "method": "DeepWalk",
+    "testAucRoc": 0.54,
+    "testPrecision": 0.54,
+    "testRecall": 0.59,
+    "testF1": 0.56,
+    "contact": {
+      "name": "ETGraph",
+      "email": "admin@etgraph.com"
+    },
+    "references": "/"
+  },
+  {
+    "method": "Node2Vec",
+    "testAucRoc": 0.54,
+    "testPrecision": 0.54,
+    "testRecall": 0.59,
+    "testF1": 0.56,
+    "contact": {
+      "name": "ETGraph",
+      "email": "admin@etgraph.com"
+    },
+    "references": "/"
+  },
+  {
+    "method": "GCN",
+    "testAucRoc": 0.79,
+    "testPrecision": 0.81,
+    "testRecall": 0.56,
+    "testF1": 0.66,
+    "contact": {
+      "name": "ETGraph",
+      "email": "admin@etgraph.com"
+    },
+    "references": "/"
+  },
+  {
+    "method": "GAT",
+    "testAucRoc": 0.80,
+    "testPrecision": 0.80,
+    "testRecall": 0.59,
+    "testF1": 0.68,
+    "contact": {
+      "name": "ETGraph",
+      "email": "admin@etgraph.com"
+    },
+    "references": "/"
+  },
+  {
+    "method": "GATv2",
+    "testAucRoc": 0.80,
+    "testPrecision": 0.76,
+    "testRecall": 0.68,
+    "testF1": 0.72,
+    "contact": {
+      "name": "ETGraph",
+      "email": "admin@etgraph.com"
+    },
+    "references": "/"
+  },
+  {
+    "method": "GraphSage",
+    "testAucRoc": 0.78,
+    "testPrecision": 0.81,
+    "testRecall": 0.52,
+    "testF1": 0.63,
+    "contact": {
+      "name": "ETGraph",
+      "email": "admin@etgraph.com"
+    },
+    "references": "/"
+  },
+  {
+    "method": "TAGCN",
+    "testAucRoc": 0.80,
+    "testPrecision": 0.76,
+    "testRecall": 0.67,
+    "testF1": 0.71,
+    "contact": {
+      "name": "ETGraph",
+      "email": "admin@etgraph.com"
+    },
+    "references": "/"
+  },
+  {
+    "method": "Cluster-GCN",
+    "testAucRoc": 0.80,
+    "testPrecision": 0.74,
+    "testRecall": 0.69,
+    "testF1": 0.71,
+    "contact": {
+      "name": "ETGraph",
+      "email": "admin@etgraph.com"
+    },
+    "references": "/"
+  },
+  {
+    "method": "DAGNN",
+    "testAucRoc": 0.80,
+    "testPrecision": 0.74,
+    "testRecall": 0.71,
+    "testF1": 0.72,
+    "contact": {
+      "name": "ETGraph",
+      "email": "admin@etgraph.com"
+    },
+    "references": "/"
+  },
+  {
+    "method": "APPNP",
+    "testAucRoc": 0.80,
+    "testPrecision": 0.74,
+    "testRecall": 0.70,
+    "testF1": 0.72,
+    "contact": {
+      "name": "ETGraph",
+      "email": "admin@etgraph.com"
+    },
+    "references": "/"
+  },
+  {
+    "method": "GGNN",
+    "testAucRoc": 0.79,
+    "testPrecision": 0.75,
+    "testRecall": 0.69,
+    "testF1": 0.72,
+    "contact": {
+      "name": "ETGraph",
+      "email": "admin@etgraph.com"
+    },
+    "references": "/"
+  }
+]
