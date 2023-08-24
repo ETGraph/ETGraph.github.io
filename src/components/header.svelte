@@ -41,7 +41,7 @@
 <header
     class="sticky top-0 z-40 flex-none w-full mx-auto bg-gray-200 border-b border-gray-200 dark:border-gray-600 dark:bg-gray-800"
 >
-    <nav class="">
+    <nav>
         <div
             class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"
         >
