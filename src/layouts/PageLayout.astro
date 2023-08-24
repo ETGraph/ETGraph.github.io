@@ -20,7 +20,10 @@ const { frontmatter } = Astro.props;
 
 <Layout title={frontmatter?.title || "ETGraph"}>
   <Jumbotron {frontmatter} {links} />
-  <main class="flex-1 flex flex-col px-4 sm:px-6 lg:px-16 bg-gray-50">
+  <main
+    class="flex-1 flex flex-col px-4 sm:px-6 lg:px-16"
+    style="background-color: #DDF8D7"
+  >
     <div
       class="flex-1 mx-auto max-w-4xl py-8 lg:py-16 prose prose-lg dark:prose-invert dark:prose-headings:text-slate-300 prose-md prose-headings:font-heading prose-headings:leading-tighter prose-headings:tracking-tighter prose-headings:font-bold prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-img:rounded-md prose-img:shadow-lg"
     >

@@ -11,7 +11,10 @@
 </script>
 
 <!-- Jumbotron -->
-<section class="bg-gradient-to-b from-gray-200 to-gray-400 dark:bg-gray-900">
+<section>
+    <div class="jbt-bg" />
+    <div class="jbt-bg jbt-bg2" />
+    <div class="jbt-bg jbt-bg3" />
     <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16">
         <h1
             class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white"
@@ -60,3 +63,34 @@
         {/if}
     </div>
 </section>
+
+<style>
+    .jbt-bg {
+        animation: slide 3s ease-in-out infinite alternate;
+        background-image: linear-gradient(-60deg, #FFD985 50%, #9C6E1E 50%);
+        bottom: 0;
+        left: -50%;
+        opacity: 0.5;
+        position: fixed;
+        right: -50%;
+        top: 0;
+        z-index: -1;
+    }
+    .jbt-bg2 {
+        animation-direction: alternate-reverse;
+        animation-duration: 4s;
+    }
+
+    .jbt-bg3 {
+        animation-duration: 5s;
+    }
+
+    @keyframes slide {
+        0% {
+            transform: translateX(-25%);
+        }
+        100% {
+            transform: translateX(25%);
+        }
+    }
+</style>
