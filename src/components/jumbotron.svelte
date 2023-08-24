@@ -1,4 +1,7 @@
 <script lang="ts">
+    import { tweened } from "svelte/motion";
+    import { cubicOut } from "svelte/easing";
+
     export let frontmatter: {
         title?: string;
         subtitle?: string;
@@ -8,13 +11,55 @@
         getStarted: string;
         learnMore: string;
     };
+
+    const imageScales = [1, 1.4];
+    const twitterImageScale = tweened(imageScales[0], {
+        duration: 300,
+        easing: cubicOut,
+    });
+    const ethereumImageScale = tweened(imageScales[0], {
+        duration: 300,
+        easing: cubicOut,
+    });
 </script>
 
 <!-- Jumbotron -->
-<section>
+<section class="relative">
     <div class="jbt-bg" />
     <div class="jbt-bg jbt-bg2" />
     <div class="jbt-bg jbt-bg3" />
+
+    <img
+        src="/images/twitter.png"
+        alt="Ethereum logo"
+        class="absolute w-12 -skew-y-3 bottom-16 left-28 md:left-28 lg:left-60"
+        style="transform: rotate(350deg) scale({$twitterImageScale})"
+        on:focus={() => {
+            twitterImageScale.set(imageScales[1]);
+        }}
+        on:mouseover={() => {
+            twitterImageScale.set(imageScales[1]);
+        }}
+        on:mouseleave={() => {
+            twitterImageScale.set(imageScales[0]);
+        }}
+    />
+    <img
+        src="/images/ethereum.png"
+        alt="Ethereum logo"
+        class="absolute w-10 skew-y-6 top-20 right-20 md:right-24 lg:right-40"
+        style="transform: rotate(5deg) scale({$ethereumImageScale})"
+        on:focus={() => {
+            ethereumImageScale.set(imageScales[1]);
+        }}
+        on:mouseover={() => {
+            ethereumImageScale.set(imageScales[1]);
+        }}
+        on:mouseleave={() => {
+            ethereumImageScale.set(imageScales[0]);
+        }}
+    />
+
     <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16">
         <h1
             class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white"
@@ -67,7 +112,7 @@
 <style>
     .jbt-bg {
         animation: slide 3s ease-in-out infinite alternate;
-        background-image: linear-gradient(-60deg, #D4A46F 50%, #937472 50%);
+        background-image: linear-gradient(-60deg, #d4a46f 50%, #937472 50%);
         bottom: 0;
         left: -50%;
         opacity: 0.5;
