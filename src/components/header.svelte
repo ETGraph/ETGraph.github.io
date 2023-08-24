@@ -3,6 +3,8 @@
     import { Dropdown } from "flowbite";
     import type { DropdownOptions } from "flowbite";
 
+    export let title = "ETGraph";
+
     const links = {
         home: "/",
         about: "/about",
@@ -47,7 +49,7 @@
                 <img src="/favicon.png" class="h-8 mr-3" alt="ETGraph Logo" />
                 <span
                     class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"
-                    >ETGraph</span
+                    >{title}</span
                 >
             </a>
             <button
