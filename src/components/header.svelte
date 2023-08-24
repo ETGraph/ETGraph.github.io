@@ -196,6 +196,6 @@
 
 <style>
     #header {
-        background-image: linear-gradient(to bottom, #87AA81, #D7A251);
+        background-color: #D4A46F;
     }
 </style>
