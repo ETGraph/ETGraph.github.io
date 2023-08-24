@@ -26,3 +26,7 @@ Steps:
 - Push to the `master` branch to trigger the deployment
 - Configure secret environment variables in the Deno Deploy project settings
   (still investigating why this step is needed)
+
+## References
+
+- [Jumbotron background effect](https://codepen.io/chris22smith/pen/RZogMa)
