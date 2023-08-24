@@ -67,7 +67,7 @@
 <style>
     .jbt-bg {
         animation: slide 3s ease-in-out infinite alternate;
-        background-image: linear-gradient(-60deg, #C1C19C 50%, #937472 50%);
+        background-image: linear-gradient(-60deg, #D4A46F 50%, #937472 50%);
         bottom: 0;
         left: -50%;
         opacity: 0.5;

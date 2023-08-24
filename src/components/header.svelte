@@ -196,6 +196,6 @@
 
 <style>
     #header {
-        background-color: #D4A46F;
+        background-color: #C1C19C;
     }
 </style>
