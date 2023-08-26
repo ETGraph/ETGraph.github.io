@@ -12,6 +12,19 @@
         learnMore: string;
     };
 
+    let TwitterImagePositionClass = "";
+    let EthereumImagePositionClass = "";
+
+    $: {
+        if (frontmatter.showButtons) {
+            TwitterImagePositionClass = "bottom-auto sm:bottom-10 lg:bottom-20 top-28 sm:top-auto left-8 sm:left-14 lg:left-24";
+            EthereumImagePositionClass = "top-4 sm:top-10 lg:top-14 right-10 sm:right-24 lg:right-40";
+        } else {
+            TwitterImagePositionClass = "bottom-auto sm:bottom-8 lg:bottom-12 top-36 sm:top-auto left-4 sm:left-14 lg:left-24";
+            EthereumImagePositionClass = "top-4 sm:top-6 lg:top-14 right-2 sm:right-24 lg:right-40";
+        }
+    }
+
     const imageScales = [1, 1.4];
     const twitterImageScale = tweened(imageScales[0], {
         duration: 300,
@@ -32,7 +45,7 @@
     <img
         src="/images/twitter.png"
         alt="Ethereum logo"
-        class="absolute w-12 -skew-y-3 bottom-auto sm:bottom-10 lg:bottom-20 top-28 sm:top-auto left-8 sm:left-14 lg:left-24"
+        class="absolute w-12 -skew-y-3 {TwitterImagePositionClass}"
         style="transform: rotate(350deg) scale({$twitterImageScale})"
         on:focus={() => {
             twitterImageScale.set(imageScales[1]);
@@ -47,7 +60,7 @@
     <img
         src="/images/ethereum.png"
         alt="Ethereum logo"
-        class="absolute w-10 skew-y-6 top-4 sm:top-10 lg:top-14 right-10 sm:right-24 lg:right-40"
+        class="absolute w-10 skew-y-6 {EthereumImagePositionClass}"
         style="transform: rotate(5deg) scale({$ethereumImageScale})"
         on:focus={() => {
             ethereumImageScale.set(imageScales[1]);
