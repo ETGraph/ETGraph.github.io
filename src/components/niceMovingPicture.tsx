@@ -24,6 +24,7 @@ const NiceMovingPicture = () => {
   return (
     <div
       onMouseMove={handleMouseMove}
+      className="max-w-full"
       style={{
         marginLeft: "auto",
         marginRight: "auto",
