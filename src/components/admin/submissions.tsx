@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Dropdown } from "flowbite";
 import type { DropdownOptions } from "flowbite";
+import { ethers } from "ethers";
 
 import type { BenchmarkEntry } from "../../db/benchmarks.ts";
 
 const Submissions = () => {
+  const [jwt, setJwt] = useState<string | null>(null);
   const [displayedSubmissions, setDisplayedSubmissions] = useState<
     (
       BenchmarkEntry & {
@@ -28,7 +30,9 @@ const Submissions = () => {
   };
 
   useEffect(() => {
-    updateDisplayedSubmissions();
+    if (jwt) {
+      updateDisplayedSubmissions();
+    }
   }, []);
 
   useEffect(() => {
@@ -57,6 +61,58 @@ const Submissions = () => {
       }
     });
   }, [displayedSubmissions]);
+
+  const login = async () => {
+    if (!ethereum) {
+      alert("Please install MetaMask to login.");
+      return;
+    }
+    const provider = new ethers.BrowserProvider(window.ethereum);
+    try {
+      const signer = await provider.getSigner();
+      // sign login message
+      const tbsMessage = JSON.stringify(
+        {
+          msg: "ETGraph Login",
+          timestame: Date.now(),
+        },
+        null,
+        2,
+      );
+      const signature = await signer.signMessage(tbsMessage);
+      console.log("Signature:", signature);
+      // login
+      const response = await fetch("/api/admin/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          tbsMessage,
+          signature,
+        }),
+      });
+      const data = await response.json();
+      console.log("JWT:", data.jwt);
+    } catch (error) {
+      alert("Please connect to MetaMask to login.");
+      return;
+    }
+  };
+
+  if (!jwt) {
+    return (
+      <div className="flex flex-col items-center justify-center">
+        <button
+          type="button"
+          className="whitespace-nowrap inline-flex items-center text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"
+          onClick={login}
+        >
+          Login with MetaMask
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="relative overflow-x-auto min-h-fit shadow-md sm:rounded-lg">
