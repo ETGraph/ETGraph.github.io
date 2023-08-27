@@ -154,6 +154,9 @@
                         >
                         <input
                             type="number"
+                            step="any"
+                            min=0
+                            max=1
                             id={`form-test-auc-roc_${leaderboardName}`}
                             bind:value={formData.testAucRoc}
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
@@ -168,6 +171,9 @@
                         >
                         <input
                             type="number"
+                            step="any"
+                            min=0
+                            max=1
                             id={`form-test-precision_${leaderboardName}`}
                             bind:value={formData.testPrecision}
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
@@ -182,6 +188,9 @@
                         >
                         <input
                             type="number"
+                            step="any"
+                            min=0
+                            max=1
                             id={`form-test-recall_${leaderboardName}`}
                             bind:value={formData.testRecall}
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
@@ -196,6 +205,9 @@
                         >
                         <input
                             type="number"
+                            step="any"
+                            min=0
+                            max=1
                             id={`form-test-f1_${leaderboardName}`}
                             bind:value={formData.testF1}
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"

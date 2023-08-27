@@ -1,8 +1,16 @@
 import type { APIRoute } from "astro";
 
-export const post: APIRoute = async ({ request, clientAddress }) => {
+import { addBenchmark } from "../../db/benchmarks.ts";
+import { del } from "./admin/benchmarks/[id].ts";
+
+export const post: APIRoute = async ({
+  request,
+  // clientAddress,
+}) => {
+  const clientAddress = "*";
   if (request.headers.get("Content-Type") === "application/json") {
     const body = await request.json() as {
+      leaderboard: string;
       method: string;
       testAucRoc: number;
       testPrecision: number;
@@ -37,6 +45,18 @@ export const post: APIRoute = async ({ request, clientAddress }) => {
         console.log(logMessage);
       } else {
         console.error(logMessage);
+      }
+      if (hCaptchaResData.success) {
+        // TODO: not type safe
+        const {
+          hCaptchaResponse: _,
+          ...benchmark
+        } = {
+          ...body,
+          clientAddress,
+          timestamp: Date.now(),
+        };
+        await addBenchmark(benchmark);
       }
       return new Response(
         null,

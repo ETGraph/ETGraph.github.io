@@ -1,18 +1,17 @@
 ---
 import Layout from "../layouts/Layout.astro";
-
+import Submissions from "../components/admin/submissions";
 ---
 
 <Layout title="ETGraph Admin Portal" headerTitle="ETGraph Admin Portal">
-  <main class="flex-1 flex flex-col px-4 sm:px-6 lg:px-16 bg-gray-50">
-    <div class="flex-1 mx-auto max-w-4xl py-8 lg:py-16">
-      <div
-        class="mx-auto max-w-4xl mt-8"
-      >
-        <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam aliquid cupiditate numquam unde reprehenderit deserunt, impedit, veritatis eius officiis, sequi doloribus. Quasi ipsam adipisci quis explicabo culpa quam illum necessitatibus!
-        </p>
-      </div>
+  <main
+    class="flex-1 flex flex-col px-4 sm:px-6 lg:px-16"
+    style="background-color: #E6E1D7"
+  >
+    <div
+      class="flex-1 mx-auto w-full max-w-full py-8 lg:py-16 prose prose-lg dark:prose-invert dark:prose-headings:text-slate-300 prose-md prose-headings:font-heading prose-headings:leading-tighter prose-headings:tracking-tighter prose-headings:font-bold prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-img:rounded-md prose-img:shadow-lg"
+    >
+      <Submissions client:load />
     </div>
   </main>
 </Layout>
