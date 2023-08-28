@@ -5,9 +5,9 @@ import { del } from "./admin/benchmarks/[id]";
 
 export const post: APIRoute = async ({
   request,
-  // clientAddress,
+  clientAddress,
 }) => {
-  const clientAddress = "*";
+  // const clientAddress = "*";
   if (request.headers.get("Content-Type") === "application/json") {
     const body = await request.json() as {
       leaderboard: string;

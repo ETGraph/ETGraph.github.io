@@ -108,6 +108,7 @@ export const patch: APIRoute = async ({
 
 export const del: APIRoute = async ({
   params,
+  request,
 }) => {
   const authHeader = request.headers.get("Authorization");
   let jwt = "";
