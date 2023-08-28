@@ -1,5 +1,6 @@
 import type { APIRoute } from "astro";
 import { ethers } from "ethers";
+import { generateJWT } from "../../../server-utils"
 
 export const post: APIRoute = async ({
   request,
@@ -12,8 +13,11 @@ export const post: APIRoute = async ({
 
     try {
       // verify signature and get signed message and signer address
-      const isVerified = ethers.verifyMessage(body.tbsMessage, body.signature);
-      if (!isVerified) {
+      const signerAddress = ethers.verifyMessage(
+        body.tbsMessage,
+        body.signature,
+      );
+      if (!signerAddress) {
         return new Response(
           "Signature verification failed",
           {
@@ -21,17 +25,28 @@ export const post: APIRoute = async ({
           },
         );
       }
-      console.log(ethers.Signature.from(body.signature).toJSON());
+      console.log(signerAddress);
       // check if signer address is admin
+      const adminAddresses = (import.meta.env.ADMIN_ETH_ADDRESSES as string)
+        .split(",");
+      if (!adminAddresses.includes(signerAddress)) {
+        return new Response(
+          "Signer address is not admin",
+          {
+            status: 401,
+          },
+        );
+      }
       // generate JWT token with signer address
+      const jwt = await generateJWT(signerAddress);
       return new Response(
         JSON.stringify({
-          jwt: "jwt",
+          jwt,
         }),
       );
     } catch (error) {
       return new Response(
-        null,
+        error,
         {
           status: 500,
         },

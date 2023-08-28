@@ -13,6 +13,7 @@ Prerequisites:
 Steps:
 
 - Create `.env` file (see [`.env.example`](.env.example))
+  - Generate 256-bit JWT secret with `openssl rand -hex 32`
 - `pnpm install`
 - `pnpm run dev`
 

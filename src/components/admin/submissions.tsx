@@ -3,10 +3,9 @@ import { Dropdown } from "flowbite";
 import type { DropdownOptions } from "flowbite";
 import { ethers } from "ethers";
 
-import type { BenchmarkEntry } from "../../db/benchmarks.ts";
+import type { BenchmarkEntry } from "../../db/benchmarks";
 
 const Submissions = () => {
-  const [jwt, setJwt] = useState<string | null>(null);
   const [displayedSubmissions, setDisplayedSubmissions] = useState<
     (
       BenchmarkEntry & {
@@ -16,24 +15,87 @@ const Submissions = () => {
     )[]
   >([]);
 
-  const updateDisplayedSubmissions = async () => {
-    // fetch submissions
-    await fetch("/api/admin/benchmarks")
-      .then((res) => res.json())
-      .then((data) =>
-        setDisplayedSubmissions(data.map((result: BenchmarkEntry) => ({
-          ...result,
-          updateDropDownTarget: React.createRef<HTMLDivElement>(),
-          updateDropDownTrigger: React.createRef<HTMLButtonElement>(),
-        })))
+  const login = async () => {
+    if (!window.ethereum) {
+      alert("Please install MetaMask to login.");
+      return;
+    }
+    const provider = new ethers.BrowserProvider(window.ethereum);
+    let tbsMessage = "";
+    let signature = "";
+    try {
+      const signer = await provider.getSigner();
+      // sign login message
+      tbsMessage = JSON.stringify(
+        {
+          msg: "ETGraph Login",
+          timestame: Date.now(),
+        },
+        null,
+        2,
       );
+      signature = await signer.signMessage(tbsMessage);
+      console.log("Signature:", signature);
+    } catch (error) {
+      alert("Please connect to MetaMask to login.");
+      return;
+    }
+    try {
+      // login
+      const response = await fetch("/api/admin/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          tbsMessage,
+          signature,
+        }),
+      });
+      if (!response.ok) {
+        const data = await response.text();
+        alert("Login failed: " + data);
+        return;
+      }
+      const data = await response.json();
+      console.log("JWT:", data.jwt);
+      // save jwt to local storage
+      localStorage.setItem("jwt", data.jwt);
+      location.reload();
+    } catch (error) {
+      alert("Login failed");
+      return;
+    }
   };
 
-  useEffect(() => {
-    if (jwt) {
-      updateDisplayedSubmissions();
+  const updateDisplayedSubmissions = async () => {
+    const jwt = localStorage.getItem("jwt");
+    if (!jwt) {
+      login();
+      return;
     }
-  }, []);
+    // fetch submissions
+    const res = await fetch("/api/admin/benchmarks", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
+    if (!res.ok) {
+      if (res.status === 403) {
+        localStorage.removeItem("jwt");
+        alert("Session expired. Please login again.");
+        location.reload();
+      }
+      return;
+    }
+    const data = await res.json() as BenchmarkEntry[];
+    setDisplayedSubmissions(data.map((result: BenchmarkEntry) => ({
+      ...result,
+      updateDropDownTarget: React.createRef<HTMLDivElement>(),
+      updateDropDownTrigger: React.createRef<HTMLButtonElement>(),
+    })));
+  };
 
   useEffect(() => {
     // activate dropdowns
@@ -62,43 +124,14 @@ const Submissions = () => {
     });
   }, [displayedSubmissions]);
 
-  const login = async () => {
-    if (!ethereum) {
-      alert("Please install MetaMask to login.");
-      return;
+  useEffect(() => {
+    const jwt = localStorage.getItem("jwt");
+    if (jwt) {
+      updateDisplayedSubmissions();
     }
-    const provider = new ethers.BrowserProvider(window.ethereum);
-    try {
-      const signer = await provider.getSigner();
-      // sign login message
-      const tbsMessage = JSON.stringify(
-        {
-          msg: "ETGraph Login",
-          timestame: Date.now(),
-        },
-        null,
-        2,
-      );
-      const signature = await signer.signMessage(tbsMessage);
-      console.log("Signature:", signature);
-      // login
-      const response = await fetch("/api/admin/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          tbsMessage,
-          signature,
-        }),
-      });
-      const data = await response.json();
-      console.log("JWT:", data.jwt);
-    } catch (error) {
-      alert("Please connect to MetaMask to login.");
-      return;
-    }
-  };
+  }, []);
+
+  const jwt = localStorage.getItem("jwt");
 
   if (!jwt) {
     return (
@@ -215,15 +248,29 @@ const Submissions = () => {
                       <button
                         className="w-full text-start px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                         onClick={() => {
+                          const jwt = localStorage.getItem("jwt");
+                          if (!jwt) {
+                            login();
+                            return;
+                          }
                           fetch(`/api/admin/benchmarks/${result.id}`, {
                             method: "PATCH",
                             headers: {
                               "Content-Type": "application/json",
+                              Authorization: `Bearer ${jwt}`,
                             },
                             body: JSON.stringify({
                               status: "approved",
                             }),
-                          }).then(() => {
+                          }).then((res) => {
+                            if (!res.ok) {
+                              if (res.status === 403) {
+                                localStorage.removeItem("jwt");
+                                alert("Session expired. Please login again.");
+                                location.reload();
+                              }
+                              return;
+                            }
                             updateDisplayedSubmissions();
                           });
                         }}
@@ -235,15 +282,29 @@ const Submissions = () => {
                       <button
                         className="w-full text-start px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                         onClick={() => {
+                          const jwt = localStorage.getItem("jwt");
+                          if (!jwt) {
+                            login();
+                            return;
+                          }
                           fetch(`/api/admin/benchmarks/${result.id}`, {
                             method: "PATCH",
                             headers: {
                               "Content-Type": "application/json",
+                              Authorization: `Bearer ${jwt}`,
                             },
                             body: JSON.stringify({
                               status: "rejected",
                             }),
-                          }).then(() => {
+                          }).then((res) => {
+                            if (!res.ok) {
+                              if (res.status === 403) {
+                                localStorage.removeItem("jwt");
+                                alert("Session expired. Please login again.");
+                                location.reload();
+                              }
+                              return;
+                            }
                             updateDisplayedSubmissions();
                           });
                         }}
@@ -296,9 +357,25 @@ const Submissions = () => {
                   type="button"
                   className="whitespace-nowrap text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
                   onClick={() => {
+                    const jwt = localStorage.getItem("jwt");
+                    if (!jwt) {
+                      login();
+                      return;
+                    }
                     fetch(`/api/admin/benchmarks/${result.id}`, {
                       method: "DELETE",
-                    }).then(() => {
+                      headers: {
+                        Authorization: `Bearer ${jwt}`,
+                      },
+                    }).then((res) => {
+                      if (!res.ok) {
+                        if (res.status === 403) {
+                          localStorage.removeItem("jwt");
+                          alert("Session expired. Please login again.");
+                          location.reload();
+                        }
+                        return;
+                      }
                       updateDisplayedSubmissions();
                     });
                   }}

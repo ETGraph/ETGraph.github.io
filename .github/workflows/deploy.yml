@@ -37,6 +37,8 @@ jobs:
           PUBLIC_GITHUB_URL: ${{ vars.PUBLIC_GITHUB_URL }}
           PUBLIC_HCAPTCHA_SITEKEY: ${{ vars.PUBLIC_HCAPTCHA_SITEKEY }}
           HCAPTCHA_SECRET_KEY: ${{ secrets.HCAPTCHA_SECRET_KEY }}
+          ADMIN_ETH_ADDRESSES: ${{ secrets.ADMIN_ETH_ADDRESSES }}
+          JWT_KEY: ${{ secrets.JWT_KEY }}
 
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
