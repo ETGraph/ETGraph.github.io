@@ -1,7 +1,7 @@
 import type { APIRoute } from "astro";
 
-import { addBenchmark } from "../../db/benchmarks.ts";
-import { del } from "./admin/benchmarks/[id].ts";
+import { addBenchmark } from "../../db/benchmarks";
+import { del } from "./admin/benchmarks/[id]";
 
 export const post: APIRoute = async ({
   request,
