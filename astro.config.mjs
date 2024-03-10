@@ -8,7 +8,7 @@ import react from "@astrojs/react";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://etgraph.deno.dev",
+  site: "https://ex-graph.deno.dev",
   output: "server",
   adapter: deno(),
   integrations: [tailwind(), svelte(), mdx(), react()],

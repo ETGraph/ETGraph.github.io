@@ -11,7 +11,7 @@ export const generateJWT = async (signerAddress: string) => {
   })
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
-    .setIssuer("etgraph.deno.dev")
+    .setIssuer("ex-graph.deno.dev")
     .setExpirationTime("1h")
     .sign(key);
   return jwt;
@@ -19,7 +19,7 @@ export const generateJWT = async (signerAddress: string) => {
 
 export const verifyJWT = async (jwt: string) => {
   const verified = await jose.jwtVerify(jwt, key, {
-    issuer: "etgraph.deno.dev",
+    issuer: "ex-graph.deno.dev",
   });
   return verified;
 };

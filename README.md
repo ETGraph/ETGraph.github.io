@@ -1,6 +1,6 @@
-# ETGraph Site
+# EX-Graph Site
 
-[![Deploy](https://github.com/ETGraph/site/actions/workflows/deploy.yml/badge.svg?branch=master)](https://github.com/ETGraph/site/actions/workflows/deploy.yml)
+[![Deploy](https://github.com/EX-Graph/site/actions/workflows/deploy.yml/badge.svg?branch=master)](https://github.com/EX-Graph/site/actions/workflows/deploy.yml)
 
 ## Development
 

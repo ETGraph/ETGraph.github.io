@@ -28,7 +28,7 @@ const Submissions = () => {
       // sign login message
       tbsMessage = JSON.stringify(
         {
-          msg: "ETGraph Login",
+          msg: "EX-Graph Login",
           timestame: Date.now(),
         },
         null,
