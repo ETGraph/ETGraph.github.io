@@ -10,13 +10,14 @@
         | "wash-trading-address-detection_with-twitter"
         | "wash-trading-address-detection_without-twitter";
 
-    let hcaptchaWidgetID: string;
+    let turnstileWidgetID: string = `form-turnstile_${leaderboardName}`;
 
     let modal: Modal;
 
     onMount(() => {
+        console.log("Leaderboard name: ", leaderboardName);
         const modelTargetEl = document.getElementById(
-            `submission-modal_${leaderboardName}`
+            `submission-modal_${leaderboardName}`,
         );
         const modalOptions: ModalOptions = {
             placement: "center",
@@ -26,15 +27,6 @@
             closable: true,
         };
         modal = new Modal(modelTargetEl, modalOptions);
-
-        if (hcaptcha.render) {
-            hcaptchaWidgetID = hcaptcha.render(
-                `form-hcaptcha_${leaderboardName}`,
-                {
-                    sitekey: import.meta.env.PUBLIC_HCAPTCHA_SITEKEY,
-                }
-            );
-        }
     });
 
     const formDataEmpty = {
@@ -54,8 +46,9 @@
 
     const handleSubmit = async () => {
         try {
-            const hCaptchaResponse = hcaptcha.getResponse(hcaptchaWidgetID);
-            if (!hCaptchaResponse) throw new Error("hCaptcha failed");
+            console.log("Turnstile widget ID: ", turnstileWidgetID);
+            const turnstileResponse = turnstile.getResponse(turnstileWidgetID);
+            if (!turnstileResponse) throw new Error("turnstile failed");
             const submitRes = await fetch("/api/submit-response", {
                 method: "POST",
                 credentials: "omit",
@@ -65,14 +58,14 @@
                 body: JSON.stringify({
                     leaderboard: leaderboardName,
                     ...formData,
-                    hCaptchaResponse,
+                    turnstileResponse,
                 }),
             });
             console.log("Details: ", formData);
             formData = {
                 ...formDataEmpty,
             };
-            hcaptcha.reset(hcaptchaWidgetID);
+            turnstile.reset(turnstileWidgetID);
         } catch (error) {
             console.error("Error in form submission:", error);
         }
@@ -84,6 +77,14 @@
     <button
         on:click={() => {
             modal.show();
+            if (turnstile.render) {
+                turnstileWidgetID = turnstile.render(
+                    `#form-turnstile_${leaderboardName}`,
+                    {
+                        sitekey: import.meta.env.PUBLIC_TURNSTILE_SITEKEY,
+                    },
+                );
+            }
         }}
         type="button"
         class="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
@@ -155,8 +156,8 @@
                         <input
                             type="number"
                             step="any"
-                            min=0
-                            max=1
+                            min="0"
+                            max="1"
                             id={`form-test-auc-roc_${leaderboardName}`}
                             bind:value={formData.testAucRoc}
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
@@ -172,8 +173,8 @@
                         <input
                             type="number"
                             step="any"
-                            min=0
-                            max=1
+                            min="0"
+                            max="1"
                             id={`form-test-precision_${leaderboardName}`}
                             bind:value={formData.testPrecision}
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
@@ -189,8 +190,8 @@
                         <input
                             type="number"
                             step="any"
-                            min=0
-                            max=1
+                            min="0"
+                            max="1"
                             id={`form-test-recall_${leaderboardName}`}
                             bind:value={formData.testRecall}
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
@@ -206,8 +207,8 @@
                         <input
                             type="number"
                             step="any"
-                            min=0
-                            max=1
+                            min="0"
+                            max="1"
                             id={`form-test-f1_${leaderboardName}`}
                             bind:value={formData.testF1}
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
@@ -257,9 +258,9 @@
                         />
                     </div>
                     <div
-                        id={`form-hcaptcha_${leaderboardName}`}
-                        class="h-captcha"
-                        data-sitekey={import.meta.env.PUBLIC_HCAPTCHA_SITEKEY}
+                        id={`form-turnstile_${leaderboardName}`}
+                        class="cf-turnstile"
+                        data-sitekey={import.meta.env.PUBLIC_TURNSTILE_SITEKEY}
                     />
                     <button
                         type="submit"

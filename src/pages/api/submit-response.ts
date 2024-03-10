@@ -19,37 +19,37 @@ export const post: APIRoute = async ({
       name: string;
       email: string;
       references: string;
-      hCaptchaResponse: string;
+      turnstileResponse: string;
     };
 
     try {
-      const hCaptchaRes = await fetch("https://hcaptcha.com/siteverify", {
+      const turnstileRes = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
         method: "POST",
         credentials: "omit",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
         body: new URLSearchParams({
-          response: body.hCaptchaResponse,
-          secret: import.meta.env.HCAPTCHA_SECRET_KEY,
-          sitekey: import.meta.env.PUBLIC_HCAPTCHA_SITEKEY,
+          response: body.turnstileResponse,
+          secret: import.meta.env.TURNSTILE_SECRET_KEY,
+          sitekey: import.meta.env.PUBLIC_TURNSTILE_SITEKEY,
         }),
       });
-      const hCaptchaResData = await hCaptchaRes.json() as {
+      const turnstileResData = await turnstileRes.json() as {
         success: boolean;
       };
       const logMessage = `[${clientAddress}] requestBody: ${
         JSON.stringify(body)
-      }, hCaptchaVerify: ${JSON.stringify(hCaptchaResData)}`;
-      if (hCaptchaResData.success) {
+      }, turnstileVerify: ${JSON.stringify(turnstileResData)}`;
+      if (turnstileResData.success) {
         console.log(logMessage);
       } else {
         console.error(logMessage);
       }
-      if (hCaptchaResData.success) {
+      if (turnstileResData.success) {
         // TODO: not type safe
         const {
-          hCaptchaResponse: _,
+          turnstileResponse: _,
           ...benchmark
         } = {
           ...body,
@@ -61,7 +61,7 @@ export const post: APIRoute = async ({
       return new Response(
         null,
         {
-          status: hCaptchaResData.success ? 200 : 400,
+          status: turnstileResData.success ? 200 : 400,
         },
       );
     } catch (error) {

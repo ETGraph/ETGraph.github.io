@@ -19,7 +19,7 @@ const { title, headerTitle } = Astro.props;
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 		<ViewTransitions />
-		<script src="https://js.hcaptcha.com/1/api.js?render=explicit" async defer></script>
+		<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
 	</head>
 	<body class="flex flex-col items-stretch min-h-screen">
 		<Header title={headerTitle} client:load/>

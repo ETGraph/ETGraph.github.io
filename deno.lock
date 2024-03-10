@@ -1,28 +1,27 @@
 {
-  "version": "2",
-  "remote": {},
-  "npm": {
+  "version": "3",
+  "packages": {
     "specifiers": {
-      "@astrojs/deno@^4.3.0": "@astrojs/deno@4.3.0_astro@2.10.8__@babel+core@7.22.10__typescript@5.1.6__vite@4.4.9",
-      "@astrojs/mdx@^0.19.7": "@astrojs/mdx@0.19.7_astro@2.10.8__@babel+core@7.22.10__typescript@5.1.6__vite@4.4.9",
-      "@astrojs/react@^2.2.2": "@astrojs/react@2.2.2_@types+react@18.2.20_@types+react-dom@18.2.7_react@18.2.0_react-dom@18.2.0__react@18.2.0_@babel+core@7.22.10",
-      "@astrojs/svelte@^3.1.0": "@astrojs/svelte@3.1.0_astro@2.10.8__@babel+core@7.22.10__typescript@5.1.6__vite@4.4.9_svelte@4.2.0",
-      "@astrojs/tailwind@^4.0.0": "@astrojs/tailwind@4.0.0_astro@2.10.8__@babel+core@7.22.10__typescript@5.1.6__vite@4.4.9_tailwindcss@3.3.3__postcss@8.4.27_postcss@8.4.27",
-      "@hcaptcha/types@^1.0.3": "@hcaptcha/types@1.0.3",
-      "@tailwindcss/typography@^0.5.9": "@tailwindcss/typography@0.5.9_tailwindcss@3.3.3__postcss@8.4.27",
-      "@types/react-dom@^18.0.6": "@types/react-dom@18.2.7",
-      "@types/react@^18.0.21": "@types/react@18.2.20",
-      "astro": "astro@2.10.8_@babel+core@7.22.10_typescript@5.1.6_vite@4.4.9",
-      "astro@^2.10.7": "astro@2.10.8_@babel+core@7.22.10_typescript@5.1.6_vite@4.4.9",
-      "ethers@^6.7.1": "ethers@6.7.1",
-      "flowbite@^1.8.1": "flowbite@1.8.1",
-      "jose@^4.14.4": "jose@4.14.4",
-      "react-dom@^18.0.0": "react-dom@18.2.0_react@18.2.0",
-      "react@^18.0.0": "react@18.2.0",
-      "svelte@^4.0.0": "svelte@4.2.0",
-      "tailwindcss@^3.0.24": "tailwindcss@3.3.3_postcss@8.4.27"
+      "npm:@astrojs/deno@^4.3.0": "npm:@astrojs/deno@4.3.0_astro@2.10.8__@babel+core@7.22.10__typescript@5.1.6__vite@4.4.9",
+      "npm:@astrojs/mdx@^0.19.7": "npm:@astrojs/mdx@0.19.7_astro@2.10.8__@babel+core@7.22.10__typescript@5.1.6__vite@4.4.9",
+      "npm:@astrojs/react@^2.2.2": "npm:@astrojs/react@2.2.2_@types+react@18.2.20_@types+react-dom@18.2.7_react@18.2.0_react-dom@18.2.0__react@18.2.0_@babel+core@7.22.10",
+      "npm:@astrojs/svelte@^3.1.0": "npm:@astrojs/svelte@3.1.0_astro@2.10.8__@babel+core@7.22.10__typescript@5.1.6__vite@4.4.9_svelte@4.2.0",
+      "npm:@astrojs/tailwind@^4.0.0": "npm:@astrojs/tailwind@4.0.0_astro@2.10.8__@babel+core@7.22.10__typescript@5.1.6__vite@4.4.9_tailwindcss@3.3.3__postcss@8.4.27_postcss@8.4.27",
+      "npm:@hcaptcha/types@^1.0.3": "npm:@hcaptcha/types@1.0.3",
+      "npm:@tailwindcss/typography@^0.5.9": "npm:@tailwindcss/typography@0.5.9_tailwindcss@3.3.3__postcss@8.4.27",
+      "npm:@types/react-dom@^18.0.6": "npm:@types/react-dom@18.2.7",
+      "npm:@types/react@^18.0.21": "npm:@types/react@18.2.20",
+      "npm:astro": "npm:astro@2.10.8_@babel+core@7.22.10_typescript@5.1.6_vite@4.4.9",
+      "npm:astro@^2.10.7": "npm:astro@2.10.8_@babel+core@7.22.10_typescript@5.1.6_vite@4.4.9",
+      "npm:ethers@^6.7.1": "npm:ethers@6.7.1",
+      "npm:flowbite@^1.8.1": "npm:flowbite@1.8.1",
+      "npm:jose@^4.14.4": "npm:jose@4.14.4",
+      "npm:react-dom@^18.0.0": "npm:react-dom@18.2.0_react@18.2.0",
+      "npm:react@^18.0.0": "npm:react@18.2.0",
+      "npm:svelte@^4.0.0": "npm:svelte@4.2.0",
+      "npm:tailwindcss@^3.0.24": "npm:tailwindcss@3.3.3_postcss@8.4.27"
     },
-    "packages": {
+    "npm": {
       "@adraffy/ens-normalize@1.9.2": {
         "integrity": "sha512-0h+FrQDqe2Wn+IIGFkTCd4aAwTJ+7834Ek1COohCyV26AXhwQ7WQaz+4F/nLOeVl/3BtWHOHLPsq46V8YB46Eg==",
         "dependencies": {}
@@ -3894,6 +3893,30 @@
         "integrity": "sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==",
         "dependencies": {}
       }
+    }
+  },
+  "remote": {},
+  "workspace": {
+    "packageJson": {
+      "dependencies": [
+        "npm:@astrojs/deno@^4.3.0",
+        "npm:@astrojs/mdx@^0.19.7",
+        "npm:@astrojs/react@^2.2.2",
+        "npm:@astrojs/svelte@^3.1.0",
+        "npm:@astrojs/tailwind@^4.0.0",
+        "npm:@hcaptcha/types@^1.0.3",
+        "npm:@tailwindcss/typography@^0.5.9",
+        "npm:@types/react-dom@^18.0.6",
+        "npm:@types/react@^18.0.21",
+        "npm:astro@^2.10.7",
+        "npm:ethers@^6.7.1",
+        "npm:flowbite@^1.8.1",
+        "npm:jose@^4.14.4",
+        "npm:react-dom@^18.0.0",
+        "npm:react@^18.0.0",
+        "npm:svelte@^4.0.0",
+        "npm:tailwindcss@^3.0.24"
+      ]
     }
   }
 }
